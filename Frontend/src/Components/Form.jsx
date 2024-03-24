@@ -19,7 +19,7 @@ const options = [
   "Backend Developer",
   "UI/UX Designer",
   "Quality Assurance Engineer",
-  "Data Scientist"
+  "Data Scientist",
 ];
 
 const Form = () => {
@@ -28,37 +28,42 @@ const Form = () => {
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const [submittedData, setSubmittedData] = useState(null);
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
 
   const handleChange = (event, index) => {
     const newAnswers = [...answers];
     newAnswers[index] = event.target.value;
     setAnswers(newAnswers);
+    setErrors((prevErrors) => ({ ...prevErrors, [index]: "" })); 
   };
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
+  //validation
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Answers:", answers);
-    console.log("Selected option:", selectedOption);
+    const validationErrors = {};
+    for (let i = 0; i < questions.length; i++) {
+      if (!answers[i]) {
+        validationErrors[i] = "This field is required";
+      }
+    }
 
-    setSelectedJobRole(selectedOption);
+    setErrors(validationErrors);
 
-    setSubmittedData({ answers, selectedOption });
+    if (Object.keys(validationErrors).length === 0) {
+      console.log("Answers:", answers);
+      console.log("Selected option:", selectedOption);
 
-    event.preventDefault();
+      setSelectedJobRole(selectedOption);
 
-    const pageMap = {
-      SoftwareEngineer: "/",
-      FrontEndDeveloper: "/",
-    };
+      setSubmittedData({ answers, selectedOption });
 
-    setSubmittedData({ answers, selectedOption });
-
-    // Navigate to the webcam route
-    navigate("/webcam", { state: { selectedJobRole: selectedOption } });
+      // Navigate to the webcam route
+      navigate("/webcam", { state: { selectedJobRole: selectedOption } });
+    }
   };
 
   return (
@@ -76,7 +81,9 @@ const Form = () => {
                     type="text"
                     value={answers[index]}
                     onChange={(event) => handleChange(event, index)}
+                    required // Mark inputs as required
                   />
+                  {errors[index] && <span className="error">{errors[index]}</span>}
                 </div>
               ))}
               <label htmlFor="dropdown">Select a preferred job role:</label>
