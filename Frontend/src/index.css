@@ -672,6 +672,7 @@ footer {
     }
     .pr-heading h1 span{
         font-size: 3rem;
+        margin-left: -30px;
     }
     .pr-heading .details{
         font-size: 1rem;
