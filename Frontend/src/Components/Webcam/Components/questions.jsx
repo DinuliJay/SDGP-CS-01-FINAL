@@ -15,7 +15,7 @@ function QuestionSelector() {
 
   useEffect(() => {
     if (selectedJobRole) {
-      axios.get('http://127.0.0.1:5002/flask')
+      axios.get('http://127.0.0.1:5000/flask')
         .then(response => {
           // Get the first 5 questions
           const firstFiveQuestions = response.data.data.slice(0, 5);
