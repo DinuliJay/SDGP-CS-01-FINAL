@@ -14,7 +14,7 @@ const Feedback = () => {
     useEffect(() => {
         const fetchFeedback = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5001/api/feedback');
+                const response = await fetch('http://127.0.0.1:5000/api/feedback');
                 if (!response.ok) {
                     throw new Error(`Failed to fetch feedback: ${response.statusText}`);
                 }
