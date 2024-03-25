@@ -8,7 +8,7 @@ const WebcamComponent = ({ onDataDetected }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5001");
+        const response = await fetch("http://127.0.0.1:5000");
         const jsonData = await response.json();
         setData(jsonData); // Update state with fetched data
         console.log(jsonData);
@@ -30,7 +30,7 @@ const WebcamComponent = ({ onDataDetected }) => {
     <div className="webcam-container">
       <div className="">
       <img
-        src="http://127.0.0.1:5001/video_feed"
+        src="http://127.0.0.1:5000/video_feed"
         style={{ width: "70%", height: "120%", objectFit: "cover" }}
         alt="Video"
       />
